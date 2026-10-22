@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security reporting guidance
+    url: https://github.com/Zh0kz/cyberpath-ai/security/policy
+    about: Report sensitive vulnerabilities privately; never post credentials in an issue.
