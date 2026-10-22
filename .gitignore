@@ -1,0 +1,58 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.env
+secrets.*
+credentials.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local state, including SQLite journal and WAL files
+data/
+backups/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Logs and temporary files
+logs/
+*.log
+*.log.*
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.swp
+*~
+
+# Virtual environments, Python caches, and build output
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Editor and OS artifacts
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

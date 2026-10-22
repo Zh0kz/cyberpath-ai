@@ -1,0 +1,1 @@
+"""Offline curated cybersecurity academy."""

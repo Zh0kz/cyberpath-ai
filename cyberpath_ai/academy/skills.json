@@ -1,0 +1,24 @@
+{
+  "skills": [
+    {"id":"ipv4_subnets","title":"IPv4 и подсети","lesson_id":"ip_subnets","question_ids":["ip_q1","ip_q3","ip_q4"]},
+    {"id":"private_ipv4","title":"Частные IPv4-адреса","lesson_id":"ip_subnets","question_ids":["ip_q2","ip_q5"]},
+    {"id":"transport_reliability","title":"Гарантии TCP и UDP","lesson_id":"tcp_udp","question_ids":["tu_q1","tu_q2","tu_q3","tu_q5"]},
+    {"id":"transport_choice","title":"Выбор транспорта","lesson_id":"tcp_udp","question_ids":["tu_q4"]},
+    {"id":"dns_resolution","title":"DNS и поиск адреса","lesson_id":"dns_https","question_ids":["dh_q1","dh_q5"]},
+    {"id":"http_tls","title":"HTTP, HTTPS и TLS","lesson_id":"dns_https","question_ids":["dh_q2","dh_q3","dh_q4"]},
+
+    {"id":"cli_navigation","title":"Навигация в Linux","lesson_id":"linux_commands","question_ids":["lc_q1","lc_q2","lc_q3","lc_q5"]},
+    {"id":"safe_file_reading","title":"Безопасное чтение файлов","lesson_id":"linux_commands","question_ids":["lc_q4"]},
+    {"id":"permission_models","title":"Модель прав Linux","lesson_id":"linux_permissions","question_ids":["lp_q1","lp_q4","lp_q5"]},
+    {"id":"permission_tools","title":"Команды управления правами","lesson_id":"linux_permissions","question_ids":["lp_q2","lp_q3"]},
+    {"id":"identity_processes","title":"Пользователи и процессы","lesson_id":"linux_users_logs","question_ids":["ul_q1","ul_q2","ul_q3"]},
+    {"id":"linux_logs","title":"Журналы Linux","lesson_id":"linux_users_logs","question_ids":["ul_q4","ul_q5"]},
+
+    {"id":"access_control","title":"Authentication и authorization","lesson_id":"auth_sessions","question_ids":["as_q1","as_q3"]},
+    {"id":"sessions","title":"Защита сессий","lesson_id":"auth_sessions","question_ids":["as_q2","as_q4","as_q5"]},
+    {"id":"parameterized_queries","title":"Parameterized queries","lesson_id":"sql_injection","question_ids":["si_q1","si_q2","si_q3"]},
+    {"id":"least_privilege_db","title":"Ограничение прав БД","lesson_id":"sql_injection","question_ids":["si_q4","si_q5"]},
+    {"id":"output_encoding","title":"XSS и output encoding","lesson_id":"xss","question_ids":["xs_q1","xs_q3","xs_q5"]},
+    {"id":"safe_dom","title":"Безопасный DOM","lesson_id":"xss","question_ids":["xs_q2","xs_q4"]}
+  ]
+}

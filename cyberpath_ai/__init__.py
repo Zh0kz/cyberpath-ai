@@ -1,0 +1,1 @@
+"""CyberPath AI Telegram bot."""

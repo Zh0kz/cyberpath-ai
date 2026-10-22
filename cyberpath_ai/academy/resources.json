@@ -1,0 +1,461 @@
+{
+  "resources": [
+    {
+      "id": "messer_osi",
+      "title": "Understanding the OSI Model",
+      "provider": "Professor Messer",
+      "category": "video",
+      "url": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/understanding-the-osi-model-n10-009/",
+      "description_ru": "Короткое видео о слоях OSI и передаче данных.",
+      "lesson_ids": [
+        "tcp_udp"
+      ],
+      "skill_ids": [
+        "transport_reliability"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": 14,
+      "prerequisites": [],
+      "objectives": [
+        "Различать уровни модели OSI"
+      ],
+      "why": "Помогает связать транспортные протоколы с моделью сети.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "messer_ip",
+      "title": "Introduction to IP",
+      "provider": "Professor Messer",
+      "category": "video",
+      "url": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/introduction-to-ip-n10-009/",
+      "description_ru": "Видео о передаче данных с помощью Internet Protocol.",
+      "lesson_ids": [
+        "ip_subnets"
+      ],
+      "skill_ids": [
+        "ipv4_subnets"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": 15,
+      "prerequisites": [],
+      "objectives": [
+        "Объяснить роль IP в передаче пакетов"
+      ],
+      "why": "Закрепляет основы IP перед практикой с адресами.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "messer_course",
+      "title": "CompTIA N10-009 Network+ Training Course",
+      "provider": "Professor Messer",
+      "category": "video",
+      "url": "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/",
+      "description_ru": "Индекс полного видеокурса по сетевым понятиям; платные конспекты продаются отдельно.",
+      "lesson_ids": [
+        "ip_subnets",
+        "tcp_udp",
+        "dns_https"
+      ],
+      "skill_ids": [
+        "ipv4_subnets",
+        "transport_reliability",
+        "dns_resolution"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": 775,
+      "prerequisites": [
+        "Базовое представление о сетях"
+      ],
+      "objectives": [
+        "Системно повторить темы Network+"
+      ],
+      "why": "Подходит для продолжения после сетевого модуля.",
+      "verified_at": "2026-10-21",
+      "path": true
+    },
+    {
+      "id": "thm_web_basics",
+      "title": "Web Application Basics",
+      "provider": "TryHackMe",
+      "category": "labs",
+      "url": "https://tryhackme.com/room/webapplicationbasics",
+      "description_ru": "Учебная комната про URL, HTTP-запросы, ответы и заголовки; нужен аккаунт.",
+      "lesson_ids": [
+        "dns_https"
+      ],
+      "skill_ids": [
+        "http_tls"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": 120,
+      "prerequisites": [
+        "Аккаунт TryHackMe"
+      ],
+      "objectives": [
+        "Разобрать основы HTTP и веб-приложений"
+      ],
+      "why": "Даёт безопасную практику после темы HTTP.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "thm_linux_process",
+      "title": "Linux Process Analysis",
+      "provider": "TryHackMe",
+      "category": "labs",
+      "url": "https://tryhackme.com/room/linuxprocessanalysis",
+      "description_ru": "Учебная комната по процессам, сервисам и анализу активности Linux; нужен аккаунт.",
+      "lesson_ids": [
+        "linux_users_logs"
+      ],
+      "skill_ids": [
+        "identity_processes",
+        "linux_logs"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": 60,
+      "prerequisites": [
+        "Аккаунт TryHackMe",
+        "Основы командной строки Linux"
+      ],
+      "objectives": [
+        "Разобрать процессы и признаки нежелательной активности"
+      ],
+      "why": "Расширяет урок о процессах и журналах практическим анализом.",
+      "verified_at": "2026-10-21",
+      "prerequisite_lesson_ids": [
+        "linux_commands"
+      ]
+    },
+    {
+      "id": "thm_network_module",
+      "title": "Network Fundamentals",
+      "provider": "TryHackMe",
+      "category": "practice",
+      "url": "https://tryhackme.com/module/network-fundamentals",
+      "description_ru": "Модуль о IP, LAN, OSI и пакетах. Доступность отдельных комнат проверяйте на сайте; бесплатность всего модуля не подтверждена.",
+      "lesson_ids": [
+        "ip_subnets",
+        "tcp_udp",
+        "dns_https"
+      ],
+      "skill_ids": [
+        "ipv4_subnets",
+        "transport_reliability",
+        "dns_resolution"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Unknown",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Аккаунт TryHackMe"
+      ],
+      "objectives": [
+        "Повторить сетевые понятия в последовательных комнатах"
+      ],
+      "why": "Продолжение после сетевого модуля CyberPath.",
+      "verified_at": "2026-10-21",
+      "path": true
+    },
+    {
+      "id": "htb_starting_point",
+      "title": "Introduction to Starting Point",
+      "provider": "Hack The Box",
+      "category": "practice",
+      "url": "https://help.hackthebox.com/en/articles/6007919-introduction-to-starting-point",
+      "description_ru": "Официальное введение в тренировочную серию Starting Point. В каждом уровне есть бесплатные и premium-машины; доступ проверяйте на платформе.",
+      "lesson_ids": [
+        "linux_commands",
+        "linux_permissions",
+        "linux_users_logs"
+      ],
+      "skill_ids": [
+        "cli_navigation",
+        "permission_models",
+        "identity_processes"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Unknown",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Аккаунт Hack The Box",
+        "Базовые команды Linux"
+      ],
+      "objectives": [
+        "Ориентироваться в официальной серии тренировочных машин"
+      ],
+      "why": "Следующий большой практический маршрут после модуля Linux.",
+      "verified_at": "2026-10-21",
+      "path": true,
+      "prerequisite_lesson_ids": [
+        "linux_commands",
+        "linux_permissions"
+      ]
+    },
+    {
+      "id": "bandit_intro",
+      "title": "Bandit",
+      "provider": "OverTheWire",
+      "category": "labs",
+      "url": "https://overthewire.org/wargames/bandit/",
+      "description_ru": "Обучающая серия уровней для начинающих с командной строкой Linux и SSH.",
+      "lesson_ids": [
+        "linux_commands",
+        "linux_permissions"
+      ],
+      "skill_ids": [
+        "cli_navigation",
+        "permission_models"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "SSH-клиент"
+      ],
+      "objectives": [
+        "Тренировать безопасную навигацию в учебной среде"
+      ],
+      "why": "Закрепляет Linux-команды на специально созданном учебном сервере.",
+      "verified_at": "2026-10-21",
+      "path": true
+    },
+    {
+      "id": "bandit_level0",
+      "title": "Bandit Level 0",
+      "provider": "OverTheWire",
+      "category": "practice",
+      "url": "https://overthewire.org/wargames/bandit/bandit0.html",
+      "description_ru": "Первый уровень официальной серии Bandit: подключение к учебной среде по SSH.",
+      "lesson_ids": [
+        "linux_commands"
+      ],
+      "skill_ids": [
+        "cli_navigation"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "SSH-клиент"
+      ],
+      "objectives": [
+        "Подключиться к разрешённой учебной среде"
+      ],
+      "why": "Короткий следующий шаг после освоения навигации Linux.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "ps_auth",
+      "title": "Authentication vulnerabilities",
+      "provider": "PortSwigger Web Security Academy",
+      "category": "labs",
+      "url": "https://portswigger.net/web-security/authentication",
+      "description_ru": "Официальный учебный раздел с объяснениями и ссылками на лаборатории по authentication.",
+      "lesson_ids": [
+        "auth_sessions"
+      ],
+      "skill_ids": [
+        "access_control",
+        "sessions"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Основы HTTP"
+      ],
+      "objectives": [
+        "Отличать authentication от authorization"
+      ],
+      "why": "Развивает тему контроля доступа в учебной среде.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "ps_sqli",
+      "title": "SQL injection",
+      "provider": "PortSwigger Web Security Academy",
+      "category": "labs",
+      "url": "https://portswigger.net/web-security/sql-injection",
+      "description_ru": "Официальная теория SQL injection и ссылки на специально уязвимые учебные лаборатории.",
+      "lesson_ids": [
+        "sql_injection"
+      ],
+      "skill_ids": [
+        "parameterized_queries",
+        "least_privilege_db"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Основы HTTP и SQL"
+      ],
+      "objectives": [
+        "Связать причины SQL injection с защитой"
+      ],
+      "why": "Практика на разрешённых лабораториях после темы параметризованных запросов.",
+      "verified_at": "2026-10-21",
+      "prerequisite_lesson_ids": [
+        "dns_https"
+      ]
+    },
+    {
+      "id": "ps_xss",
+      "title": "Cross-site scripting (XSS)",
+      "provider": "PortSwigger Web Security Academy",
+      "category": "labs",
+      "url": "https://portswigger.net/web-security/cross-site-scripting",
+      "description_ru": "Официальная теория XSS и ссылки на учебные лаборатории по браузерной безопасности.",
+      "lesson_ids": [
+        "xss"
+      ],
+      "skill_ids": [
+        "output_encoding",
+        "safe_dom"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Основы HTML и JavaScript"
+      ],
+      "objectives": [
+        "Распознавать контексты XSS и защитные меры"
+      ],
+      "why": "Даёт разрешённую практику после урока XSS.",
+      "verified_at": "2026-10-21",
+      "prerequisite_lesson_ids": [
+        "dns_https"
+      ]
+    },
+    {
+      "id": "mdn_http",
+      "title": "Overview of HTTP",
+      "provider": "MDN Web Docs",
+      "category": "reading",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+      "description_ru": "Справочный обзор HTTP, запросов, ответов и роли протокола в Web.",
+      "lesson_ids": [
+        "dns_https"
+      ],
+      "skill_ids": [
+        "http_tls"
+      ],
+      "difficulty": "Beginner",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [],
+      "objectives": [
+        "Объяснить обмен HTTP-запросами и ответами"
+      ],
+      "why": "Помогает закрепить теорию перед веб-практикой.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "owasp_sqli",
+      "title": "SQL Injection Prevention Cheat Sheet",
+      "provider": "OWASP",
+      "category": "reading",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+      "description_ru": "Официальные рекомендации по prepared statements, parameterized queries и другим мерам защиты.",
+      "lesson_ids": [
+        "sql_injection"
+      ],
+      "skill_ids": [
+        "parameterized_queries",
+        "least_privilege_db"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Базовые знания SQL"
+      ],
+      "objectives": [
+        "Выбрать корректную защиту от SQL injection"
+      ],
+      "why": "Углубляет защитную часть урока SQL injection.",
+      "verified_at": "2026-10-21"
+    },
+    {
+      "id": "owasp_xss",
+      "title": "Cross Site Scripting Prevention Cheat Sheet",
+      "provider": "OWASP",
+      "category": "reading",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+      "description_ru": "Официальная памятка по context-sensitive output encoding и безопасной работе с DOM.",
+      "lesson_ids": [
+        "xss"
+      ],
+      "skill_ids": [
+        "output_encoding",
+        "safe_dom"
+      ],
+      "difficulty": "Advanced",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Основы HTML и JavaScript"
+      ],
+      "objectives": [
+        "Соотнести тип вывода с защитой от XSS"
+      ],
+      "why": "Углубляет тему output encoding и безопасного DOM.",
+      "verified_at": "2026-10-21",
+      "prerequisite_lesson_ids": [
+        "xss"
+      ]
+    },
+    {
+      "id": "ps_paths",
+      "title": "Web Security Academy Learning Paths",
+      "provider": "PortSwigger Web Security Academy",
+      "category": "practice",
+      "url": "https://portswigger.net/web-security/learning-paths",
+      "description_ru": "Официальные последовательные маршруты изучения безопасности веб-приложений.",
+      "lesson_ids": [
+        "auth_sessions",
+        "sql_injection",
+        "xss"
+      ],
+      "skill_ids": [
+        "access_control",
+        "parameterized_queries",
+        "output_encoding"
+      ],
+      "difficulty": "Intermediate",
+      "language": "English",
+      "access": "Free",
+      "duration_minutes": null,
+      "prerequisites": [
+        "Основы HTTP"
+      ],
+      "objectives": [
+        "Продолжить практику веб-безопасности по маршруту"
+      ],
+      "why": "Подходит после завершения веб-модуля CyberPath.",
+      "verified_at": "2026-10-21",
+      "path": true
+    }
+  ]
+}
