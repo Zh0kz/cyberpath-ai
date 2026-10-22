@@ -19,6 +19,8 @@ rights to the existing lesson, quiz, skill-title, or resource-description text.
 Therefore **none of the existing educational JSON is currently offered under
 CC BY 4.0 by this repository**. See [`CONTENT_LICENSE_SCOPE.md`](CONTENT_LICENSE_SCOPE.md)
 for the exact pending paths and the process for adding verified works.
+The new fictional investigation scenarios are also excluded from any CC BY
+grant until the rights holder makes an explicit licensing decision.
 
 This is a scope decision, not an assertion that the existing content belongs
 to a third party. It avoids granting rights the project has not verified.

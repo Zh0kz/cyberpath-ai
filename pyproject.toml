@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyberpath-ai"
-version = "0.4.2"
+version = "0.4.6"
 description = "Personal cybersecurity education Telegram bot"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -21,7 +21,7 @@ test = ["pytest>=8,<10"]
 include = ["cyberpath_ai*"]
 
 [tool.setuptools.package-data]
-"cyberpath_ai.academy" = ["skills.json", "resources.json"]
+"cyberpath_ai.academy" = ["skills.json", "resources.json", "investigations.json"]
 "cyberpath_ai.academy.lessons" = ["*.json"]
 
 [tool.pytest.ini_options]

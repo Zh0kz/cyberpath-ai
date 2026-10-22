@@ -68,6 +68,8 @@ HELP_TEXT = ("<b>❓ Помощь · CyberPath</b>\n\n"
              "<b>Новости:</b> /news показывает реальные материалы и ссылки на источники. "
              "В /settings можно включить ежедневную рассылку.\n\n"
              "<b>Миссия дня:</b> /mission объединяет новости, урок, тест и повторение.\n\n"
+             "<b>Практические задания:</b> /learn → «🛡️ Практические задания». "
+             "Исследуйте вымышленные улики по шагам; попытки сохраняются отдельно от квизов.\n\n"
              "Вернуться можно кнопкой «🏠 Главное меню» или командой /menu.")
 
 
@@ -99,7 +101,8 @@ async def handle_command(message: Message, bot: Bot, state: FSMContext,
                          catalog: Catalog, academy_store: AcademyStore,
                          adaptive_store: AdaptiveStore, mission_store: MissionStore,
                          preferences: PreferenceStore, settings: Settings,
-                         resource_views=None) -> None:
+                         resource_views=None, investigation_views=None,
+                         investigation_store=None) -> None:
     if message.from_user is None:
         return
     name = (message.text or "").split(maxsplit=1)[0].removeprefix("/").split("@", 1)[0].lower()
@@ -108,7 +111,7 @@ async def handle_command(message: Message, bot: Bot, state: FSMContext,
     await state.clear()
     user_id, chat_id = message.from_user.id, message.chat.id
     _clear_views(chat_id, user_id, news_views, academy_views, settings_views,
-                 mission_views, resource_views)
+                 mission_views, resource_views, investigation_views)
     if message.chat.type != "private":
         try:
             await message.answer("Откройте CyberPath в личном чате с ботом.")
@@ -116,7 +119,8 @@ async def handle_command(message: Message, bot: Bot, state: FSMContext,
             pass
         return
     if name in {"start", "menu"}:
-        await start(message, academy_store, adaptive_store, mission_store, catalog)
+        await start(message, academy_store, adaptive_store, mission_store, catalog,
+                    investigation_store)
         return
     if name == "help":
         try:
@@ -149,7 +153,7 @@ async def handle_command(message: Message, bot: Bot, state: FSMContext,
             view = academy_new("progress" if name == "progress" else "modules",
                                mode="quiz" if name == "quiz" else "learn")
         await send_academy(bot, chat_id, user_id, view, academy_views, catalog,
-                           academy_store, adaptive_store)
+                           academy_store, adaptive_store, investigation_store)
         return
     if name == "settings":
         try:

@@ -44,7 +44,7 @@ def main_menu(*, continue_learning: bool = False,
 
 def render_dashboard(user_id: int, academy_store: AcademyStore,
                      adaptive_store: AdaptiveStore, mission_store: MissionStore,
-                     catalog: Catalog) -> tuple[str, InlineKeyboardMarkup]:
+                     catalog: Catalog, investigation_store=None) -> tuple[str, InlineKeyboardMarkup]:
     snapshot = academy_store.progress_snapshot(user_id)
     completed = sum(bool(row["completed_at_utc"]) for row in snapshot["lessons"])
     total = sum(len(module.lessons) for module in catalog.modules)
@@ -61,6 +61,10 @@ def render_dashboard(user_id: int, academy_store: AcademyStore,
              f"Повторение: {due} вопрос(ов) к повторению",
              f"Миссия сегодня: {mission_state}",
              f"Следующий урок: {next_lesson}"]
+    if investigation_store is not None:
+        investigations = investigation_store.summary(user_id)
+        lines.append(f"Расследования: {investigations['completed']} завершено, "
+                     f"{investigations['active']} в процессе")
     if not snapshot["lessons"] and not snapshot["attempts"]:
         lines.append("Начните с короткого урока в Академии.")
     text = screen("🚀 CyberPath AI", "Добро пожаловать. Выберите следующий шаг.",
@@ -74,11 +78,12 @@ def render_dashboard(user_id: int, academy_store: AcademyStore,
 async def start(message: Message, academy_store: AcademyStore | None = None,
                 adaptive_store: AdaptiveStore | None = None,
                 mission_store: MissionStore | None = None,
-                catalog: Catalog | None = None) -> None:
+                catalog: Catalog | None = None, investigation_store=None) -> None:
     if (getattr(message, "from_user", None) and academy_store and adaptive_store
             and mission_store and catalog):
         text, keyboard = render_dashboard(message.from_user.id, academy_store,
-                                          adaptive_store, mission_store, catalog)
+                                          adaptive_store, mission_store, catalog,
+                                          investigation_store)
     else:
         text, keyboard = screen("🚀 CyberPath AI", "Добро пожаловать. Выберите раздел."), main_menu()
     await message.answer(
@@ -88,7 +93,8 @@ async def start(message: Message, academy_store: AcademyStore | None = None,
 
 
 def _clear_views(chat_id: int, user_id: int, news_views, academy_views,
-                 settings_views, mission_views=None, resource_views=None) -> None:
+                 settings_views, mission_views=None, resource_views=None,
+                 investigation_views=None) -> None:
     news_views.discard_user(chat_id, user_id)
     academy_views.forget(chat_id, user_id)
     settings_views.forget(chat_id, user_id)
@@ -96,6 +102,8 @@ def _clear_views(chat_id: int, user_id: int, news_views, academy_views,
         mission_views.forget(chat_id, user_id)
     if resource_views is not None:
         resource_views.forget(chat_id, user_id)
+    if investigation_views is not None:
+        investigation_views.forget(chat_id, user_id)
 
 
 async def menu_command(message: Message, state: FSMContext, news_views,
@@ -103,12 +111,15 @@ async def menu_command(message: Message, state: FSMContext, news_views,
                        academy_store: AcademyStore | None = None,
                        adaptive_store: AdaptiveStore | None = None,
                        mission_store: MissionStore | None = None,
-                       catalog: Catalog | None = None, resource_views=None) -> None:
+                       catalog: Catalog | None = None, resource_views=None,
+                       investigation_views=None, investigation_store=None) -> None:
     await state.clear()
     if message.from_user:
         _clear_views(message.chat.id, message.from_user.id, news_views,
-                     academy_views, settings_views, mission_views, resource_views)
-    await start(message, academy_store, adaptive_store, mission_store, catalog)
+                     academy_views, settings_views, mission_views, resource_views,
+                     investigation_views)
+    await start(message, academy_store, adaptive_store, mission_store, catalog,
+                investigation_store)
 
 
 async def home_callback(query: CallbackQuery, state: FSMContext, news_views,
@@ -116,17 +127,20 @@ async def home_callback(query: CallbackQuery, state: FSMContext, news_views,
                         academy_store: AcademyStore | None = None,
                         adaptive_store: AdaptiveStore | None = None,
                         mission_store: MissionStore | None = None,
-                        catalog: Catalog | None = None, resource_views=None) -> None:
+                        catalog: Catalog | None = None, resource_views=None,
+                        investigation_views=None, investigation_store=None) -> None:
     await state.clear()
     if isinstance(query.message, Message):
         _clear_views(query.message.chat.id, query.from_user.id, news_views,
-                     academy_views, settings_views, mission_views, resource_views)
+                     academy_views, settings_views, mission_views, resource_views,
+                     investigation_views)
     await query.answer()
     if not isinstance(query.message, Message):
         return
     if academy_store and adaptive_store and mission_store and catalog:
         text, keyboard = render_dashboard(query.from_user.id, academy_store,
-                                          adaptive_store, mission_store, catalog)
+                                          adaptive_store, mission_store, catalog,
+                                          investigation_store)
     else:
         text, keyboard = screen("🚀 CyberPath AI", "Добро пожаловать. Выберите раздел."), main_menu()
     try:

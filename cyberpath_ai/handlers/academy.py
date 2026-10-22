@@ -115,7 +115,8 @@ def _answer_text(question: dict) -> str:
 
 
 def render(view: AcademyView, user_id: int, catalog: Catalog,
-           store: AcademyStore, adaptive: AdaptiveStore | None = None
+           store: AcademyStore, adaptive: AdaptiveStore | None = None,
+           investigation_store=None
            ) -> tuple[str, InlineKeyboardMarkup]:
     token = view.token
     rows: list[list[InlineKeyboardButton]] = []
@@ -133,6 +134,7 @@ def render(view: AcademyView, user_id: int, catalog: Catalog,
         if adaptive and view.mode == "learn":
             rows.append([_button(token, "review", "🔁 Повторить темы")])
             rows.append([_button(token, "recommend", "🎯 Следующий урок")])
+            rows.append([_button(token, "challenges", "🛡️ Практические задания")])
     elif view.screen == "lessons":
         module = catalog.module_by_id[view.module_id]
         lines = [f"<b>📚 {_safe(module.title, 120)}</b>", "Выберите урок для изучения или проверки."]
@@ -344,6 +346,11 @@ def render(view: AcademyView, user_id: int, catalog: Catalog,
                          f"({total / possible * 100:.0f}%).")
         lines.append(f"Подсказок: {sum(row['hints_used'] for row in snapshot['runs'])}; "
                      f"показанных ответов: {sum(row['revealed'] for row in snapshot['runs'])}.")
+        if investigation_store is not None:
+            investigations = investigation_store.summary(user_id)
+            lines.append(f"Практические расследования: завершено {investigations['completed']}, "
+                         f"в процессе {investigations['active']}. Баллы расследований "
+                         "не входят в мастерство квизов.")
         if adaptive:
             statuses = adaptive.skill_statuses(user_id)
             assessed = [status for status in statuses if status.percent is not None]
@@ -389,8 +396,9 @@ def render(view: AcademyView, user_id: int, catalog: Catalog,
 
 async def _show(bot: Bot, chat_id: int, message_id: int, user_id: int,
                 view: AcademyView, views: AcademyViews, catalog: Catalog,
-                store: AcademyStore, adaptive: AdaptiveStore | None = None) -> None:
-    text, keyboard = render(view, user_id, catalog, store, adaptive)
+                store: AcademyStore, adaptive: AdaptiveStore | None = None,
+                investigation_store=None) -> None:
+    text, keyboard = render(view, user_id, catalog, store, adaptive, investigation_store)
     if len(text) > 3900:
         text = "<b>Раздел слишком длинный.</b> Откройте модуль заново."
     previews = LinkPreviewOptions(is_disabled=True)
@@ -412,9 +420,10 @@ async def _show(bot: Bot, chat_id: int, message_id: int, user_id: int,
 
 async def send_academy(bot: Bot, chat_id: int, user_id: int,
                        view: AcademyView, views: AcademyViews, catalog: Catalog,
-                       store: AcademyStore, adaptive: AdaptiveStore) -> None:
+                       store: AcademyStore, adaptive: AdaptiveStore,
+                       investigation_store=None) -> None:
     """Open an Academy screen from a slash command without editing user messages."""
-    text, keyboard = render(view, user_id, catalog, store, adaptive)
+    text, keyboard = render(view, user_id, catalog, store, adaptive, investigation_store)
     if len(text) > 3900:
         text = "<b>Раздел слишком длинный.</b> Откройте модуль заново."
     try:
@@ -428,12 +437,15 @@ async def send_academy(bot: Bot, chat_id: int, user_id: int,
 
 async def open_academy(query: CallbackQuery, bot: Bot, catalog: Catalog,
                        academy_store: AcademyStore, academy_views: AcademyViews,
-                       adaptive_store: AdaptiveStore, mission_views=None) -> None:
+                       adaptive_store: AdaptiveStore, mission_views=None,
+                       investigation_views=None, investigation_store=None) -> None:
     if not isinstance(query.message, Message) or query.message.chat.type != "private":
         await query.answer("Open the academy in a private chat.", show_alert=True)
         return
     if mission_views is not None:
         mission_views.forget(query.message.chat.id, query.from_user.id)
+    if investigation_views is not None:
+        investigation_views.forget(query.message.chat.id, query.from_user.id)
     await query.answer()
     user_id = query.from_user.id
     if query.data == "menu:review":
@@ -461,7 +473,7 @@ async def open_academy(query: CallbackQuery, bot: Bot, catalog: Catalog,
         view = _new(screen, mode=mode)
     await _show(bot, query.message.chat.id, query.message.message_id, query.from_user.id,
                 view, academy_views, catalog, academy_store,
-                adaptive_store)
+                adaptive_store, investigation_store)
 
 
 async def academy_action(query: CallbackQuery, bot: Bot, catalog: Catalog,
@@ -472,7 +484,9 @@ async def academy_action(query: CallbackQuery, bot: Bot, catalog: Catalog,
                          news_store: NewsStore | None = None,
                          settings: Settings | None = None,
                          resource_recommender=None, resource_store=None,
-                         resource_views=None) -> None:
+                         resource_views=None, investigation_catalog=None,
+                         investigation_store=None, investigation_views=None,
+                         resource_catalog=None) -> None:
     if not isinstance(query.message, Message) or query.message.chat.type != "private":
         await query.answer("Open the academy in a private chat.", show_alert=True)
         return
@@ -483,6 +497,14 @@ async def academy_action(query: CallbackQuery, bot: Bot, catalog: Catalog,
         return
     action, param = match.group(2), match.group(3)
     user_id = query.from_user.id
+    if (action == "challenges" and view.screen == "modules" and view.mode == "learn"
+            and investigation_catalog and investigation_store and investigation_views
+            and resource_catalog):
+        from cyberpath_ai.handlers.investigations import open_from_academy
+        await open_from_academy(query, bot, academy_views, investigation_views,
+                                investigation_catalog, investigation_store,
+                                catalog, resource_catalog)
+        return
     if (action == "resources" and view.screen in {"lesson", "results"}
             and view.lesson_id in catalog.lesson_by_id
             and (view.screen == "results" or
@@ -661,13 +683,23 @@ async def academy_action(query: CallbackQuery, bot: Bot, catalog: Catalog,
         target = replace(target, from_mission=True)
     await query.answer()
     await _show(bot, query.message.chat.id, query.message.message_id, user_id,
-                target, academy_views, catalog, academy_store, adaptive_store)
+                target, academy_views, catalog, academy_store, adaptive_store,
+                investigation_store)
 
 
 async def academy_text(message: Message, bot: Bot, catalog: Catalog,
                        academy_store: AcademyStore, academy_views: AcademyViews,
-                       adaptive_store: AdaptiveStore) -> None:
+                       adaptive_store: AdaptiveStore, investigation_views=None,
+                       investigation_catalog=None, investigation_store=None,
+                       resource_catalog=None) -> None:
     if message.chat.type != "private" or message.from_user is None or not message.text:
+        return
+    if (investigation_views is not None and investigation_catalog is not None
+            and investigation_store is not None and resource_catalog is not None
+            and investigation_views.current(message.chat.id, message.from_user.id)):
+        from cyberpath_ai.handlers.investigations import investigation_text
+        await investigation_text(message, bot, investigation_views, investigation_catalog,
+                                 investigation_store, catalog, resource_catalog)
         return
     current = academy_views.current(message.chat.id, message.from_user.id)
     if current is None:

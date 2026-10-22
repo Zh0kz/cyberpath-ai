@@ -10,6 +10,8 @@ from cyberpath_ai.academy.adaptive import AdaptiveStore
 from cyberpath_ai.academy.storage import AcademyStore
 from cyberpath_ai.academy.mission import MissionStore
 from cyberpath_ai.academy.resources import load_resources
+from cyberpath_ai.academy.investigations import load_investigations
+from cyberpath_ai.academy.investigation_storage import InvestigationStore
 from cyberpath_ai.academy.resource_recommendations import ResourceStore, ResourceRecommender
 from cyberpath_ai.ai.explainer import AIExplainer
 from cyberpath_ai.config import Settings
@@ -20,6 +22,8 @@ from cyberpath_ai.handlers.settings import SettingsViewStore, create_router as c
 from cyberpath_ai.handlers.mission import MissionViews, create_router as create_mission_router
 from cyberpath_ai.handlers.commands import create_router as create_command_router, register_native_menu
 from cyberpath_ai.handlers.resources import ResourceViews, create_router as create_resource_router
+from cyberpath_ai.handlers.investigations import (InvestigationViews,
+                                                  create_router as create_investigation_router)
 from cyberpath_ai.news.service import NewsService
 from cyberpath_ai.news.storage import NewsStore
 from cyberpath_ai.scheduler import DailyScheduler, DigestService, PreferenceStore
@@ -79,6 +83,11 @@ def create_dispatcher(settings: Settings, news_service: NewsService | None = Non
     dispatcher["mission_views"] = MissionViews()
     dispatcher["academy_views"] = AcademyViews()
     dispatcher["resource_catalog"] = load_resources(catalog)
+    dispatcher["investigation_catalog"] = load_investigations(
+        catalog, dispatcher["resource_catalog"])
+    dispatcher["investigation_store"] = InvestigationStore(
+        settings.news_db_path, dispatcher["investigation_catalog"])
+    dispatcher["investigation_views"] = InvestigationViews()
     dispatcher["resource_store"] = ResourceStore(settings.news_db_path)
     dispatcher["resource_recommender"] = ResourceRecommender(
         catalog, dispatcher["resource_catalog"], dispatcher["academy_store"],
@@ -89,6 +98,7 @@ def create_dispatcher(settings: Settings, news_service: NewsService | None = Non
     dispatcher.include_router(create_settings_router())
     dispatcher.include_router(create_menu_router())
     dispatcher.include_router(create_mission_router())
+    dispatcher.include_router(create_investigation_router())
     dispatcher.include_router(create_academy_router())
     dispatcher.include_router(create_resource_router())
     return dispatcher

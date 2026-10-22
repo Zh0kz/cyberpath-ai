@@ -2,7 +2,7 @@
 
 Audit date: 2026-10-22. This is a repository-content audit, not proof of
 authorship or permission from external publishers. No lesson or resource JSON
-was changed.
+was changed. Stage 4.6 added a separate fictional investigation JSON file.
 
 The repository owner confirmed that rights to the existing original Russian
 lesson, quiz, skill-title, and resource-description text are **not yet
@@ -16,6 +16,7 @@ works; see `CONTENT_LICENSE_SCOPE.md`.
 | `cyberpath_ai/academy/lessons/networking.json`, `linux.json`, `web_security.json` | Three modules, nine lessons, 45 quiz questions. | Russian explanations, examples, answer feedback, and hints are stored in the repository. The JSON has no author, license, or source-attribution fields. Networking mentions RFC 1918, but a reference to a standard does not establish authorship of the lesson wording. |
 | `cyberpath_ai/academy/skills.json` | 18 skill titles and mappings. | No author or license metadata. Some labels are general technical terms. |
 | `cyberpath_ai/academy/resources.json` | 16 entries from seven external providers. | Entries contain provider names, page titles, exact external HTTPS URLs, short Russian descriptions and recommendation rationales. They do not bundle the linked videos, labs, pages, or screenshots. The longest `description_ru` is 140 characters; its authorship still needs confirmation. |
+| `cyberpath_ai/academy/investigations.json` | Three new fictional scenarios, five steps each. | The scenarios use synthetic Linux listings, TEST-NET IP ranges, and a fictional company. They reference existing resource IDs but do not copy external lab exercises or fetched pages. Rights and license scope for this new educational text still need an explicit owner decision; no CC BY grant is currently made. |
 | Runtime news from CISA KEV, NVD, and BleepingComputer | Not bundled in the repository. | Feed titles, descriptions, and articles remain third-party material. Source links and dates should stay visible in the bot. |
 
 The external providers named in the resource catalog are Hack The Box, MDN Web

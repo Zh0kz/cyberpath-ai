@@ -10,11 +10,14 @@ item will be implemented.
 - Free curated lessons in Networking, Linux, and Web Security; five-question
   quizzes, progress, adaptive lesson suggestions, spaced review, daily missions,
   and links to external learning resources.
+- Three fictional, offline practical investigations covering Linux permissions,
+  DNS/TCP traffic, and cautious SOC log analysis. Each has persistent steps,
+  hints, retries, and a final educational debrief.
 - Offline tests and GitHub Actions CI. No active scanning of external systems.
 
 ## Planned or under consideration
 
-- Practical challenges designed for authorized, isolated training environments.
+- More practical cases and richer authorized training simulations.
 - Clearer learning paths and more personalized recommendations across topics.
 - A deployment design for multiple independent users with stronger operational
   controls, data management, and privacy documentation.

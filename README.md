@@ -5,13 +5,12 @@ curated Russian lessons, short quizzes, spaced review, and source-backed securit
 news. Python, aiogram, and SQLite run it locally; optional AI explanations use a
 key you configure. The bot does **not** scan external systems.
 
-**Project status:** The current `0.4.2` code includes the Academy, News, daily
-missions, adaptive lesson suggestions, resource recommendations, and an opt-in
-news digest. Stage 4.5 adds community documentation and an MIT license for
-original software code; rights to existing educational text are still under
-review.
-Practical challenges, broader learning paths, managed multiuser deployment, and
-premium courses are ideas for the future, not available features. See
+**Project status:** The current `0.4.6` code includes the Academy, three offline
+practical investigations, News, daily missions, adaptive lesson suggestions,
+resource recommendations, and an opt-in news digest. The community documentation
+and MIT license cover original software code; rights to existing educational
+text are still under review. Broader learning paths, managed multiuser deployment,
+and premium courses are ideas for the future, not available features. See
 [ROADMAP.md](ROADMAP.md).
 
 ## What you can do today
@@ -20,6 +19,7 @@ premium courses are ideas for the future, not available features. See
 | --- | --- |
 | News | Browse recent items from CISA KEV, NVD, and BleepingComputer RSS, one at a time, with the original source link. Failed sources can fall back to cached items. |
 | Academy | Read curated Networking, Linux, and Web Security lessons in Russian, with useful English technical terms. |
+| Practical investigations | Work through five connected evidence steps in each of three fictional cases: Linux permissions, DNS/TCP traffic, and a SOC login investigation. Give short text answers or choose a defensive decision, use three progressive hints, retry steps, resume after restart, and read a final debrief. These attempts do not change lesson quiz mastery. |
 | Quizzes and progress | Take five-question lesson quizzes with hints, deterministic grading, partial credit where defined, and saved progress. |
 | Adaptive learning | See a suggested next lesson and manually review questions when spaced repetition says they are due. |
 | Daily Mission | Open a saved daily set of news, lesson, quiz, and due-review tasks. Completing each task requires actual activity. |
@@ -32,8 +32,9 @@ The inline menu and Telegram command menu offer `/start`, `/news`, `/learn`,
 
 ## Screenshots
 
-Screenshots are coming. Suggested images: the home dashboard, a lesson, a quiz,
-and a news article with its original-source button. Use a demo account and
+Screenshots are coming. Suggested images: the home dashboard, a lesson, an
+investigation step and debrief, and a news article with its original-source
+button. Use a demo account and
 redact user IDs, private chats, tokens, and personal progress before adding any
 image to the repository.
 
@@ -67,6 +68,16 @@ set "ALLOWED_USER_IDS=YOUR_NUMERIC_TELEGRAM_ID"
 Send `/start` to **your own** bot in a private chat. Stop the process with
 `Ctrl+C`. Daily delivery works only while it is running. Your local data goes
 to `data\cyberpath.sqlite3` by default; keep that file and its backups private.
+
+To try Stage 4.6, send `/learn` and tap **🛡️ Практические задания**. Open one
+of the three cases, inspect the displayed synthetic evidence, and answer each
+step. The bot never executes typed commands or captures live traffic. A wrong
+answer can be retried; the complete reasoning is shown after a correct answer,
+after revealing an answer with three hints, or in the final debrief. Only the
+latest finalized run of each step contributes to its investigation score.
+Investigation scores are separate from lesson quizzes and skill mastery. The
+debrief links to existing curated external learning resources; their pages are
+not fetched by the bot.
 
 Cloning this repository **does not grant access to the maintainer's bot
 instance**, token, users, or database. You create and operate a separate bot.
@@ -157,6 +168,9 @@ courses, provider names, and linked media remain under their owners' rights.
 Future separately authored premium courses would have their own terms. See
 [LICENSING.md](LICENSING.md) and the [content audit](docs/CONTENT_AUDIT.md)
 before reusing educational content.
+
+The new investigation scenarios have no CC BY grant pending an explicit rights
+and licensing decision.
 
 CyberPath AI is for defensive learning on systems you own or are authorized to
 use. It does not provide operational instructions for attacking real systems.

@@ -14,6 +14,7 @@ attribution line.
 | `cyberpath_ai/academy/lessons/networking.json`, `linux.json`, `web_security.json`: authored objectives, sections, examples, summaries, quiz prompts, explanations, feedback, and hints | Rights verification pending; **not currently CC BY licensed**. |
 | `cyberpath_ai/academy/skills.json`: any original skill-title wording | Rights verification pending; **not currently CC BY licensed**. |
 | `cyberpath_ai/academy/resources.json`: any original `description_ru`, `objectives`, `why`, or explanatory prerequisite wording | Rights verification pending; **not currently CC BY licensed**. |
+| `cyberpath_ai/academy/investigations.json`: new fictional scenario narratives, evidence, prompts, hints and explanations | No CC BY grant pending an explicit rights and licensing decision. |
 
 Structured IDs, factual metadata, technical terms, external provider names,
 course titles, URLs, and links are not claimed as CyberPath-owned creative
