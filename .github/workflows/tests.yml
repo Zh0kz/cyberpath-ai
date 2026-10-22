@@ -1,5 +1,6 @@
 name: Tests
 
+# Pull requests run contributor code. Keep this job read-only and secret-free.
 on:
   push:
   pull_request:
